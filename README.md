@@ -13,6 +13,17 @@
 10. [Get extensive zone information](#getzoneInfo)
 
 
+# List of Operations
+| Operation | Method | Description | 
+| ------ | ------ | ------ |
+| /parking/start       | POST   | Start a parking action |
+| /parking/stop        | PUT    | Stop a parking action |
+| /parking/{id}        | GET    | Get an existing parking action |
+| /parking/register    | POST   | Register a parking right |
+| /parking/extend/{id} | PUT    | Extend an existing parking right |
+| /parking/end/{id}    | PUT    | End an existing parking right |
+| /parking/cancel/{id} | DELETE | Cancel an existing parking right |
+
  
 # **Starts an parking session** <a name="startparking"></a>
 **POST /parking/start**
