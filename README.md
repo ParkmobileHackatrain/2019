@@ -1,97 +1,103 @@
 
 
 # Table of contents
-1. [Parking start](#startparking)
-2. [Parking stop ](#stopparking)
-3. [Get running parking session](#getactivesession)
-4. [Start parking session with known endtime](#startbytime)
-5. [Extend running parking session](#extendparking)
-6. [End running parking session](#endparking)
-7. [Get price of desired parking action](#calculateprice)
-8. [Get zone information](#getzoneinfooperatorlocation)
-9. [Get zone infromation by GPS coordinates](#getzoneinfogps)
-10. [Get extensive zone information](#getzoneInfo)
+1. [List of operations] (#listoperations)
+2. [Parking start](#startparking)
+3. [Parking stop](#stopparking)
+4. [Get running parking session](#getactivesession)
+5. [Start parking session with known endtime](#startbytime)
+6. [Extend running parking session](#extendparking)
+7. [End running parking session](#endparking)
+8. [Get price of desired parking action](#calculateprice)
+9. [Get zone information](#getzoneinfooperatorlocation)
+10. [Get zone infromation by GPS coordinates](#getzoneinfogps)
+11. [Get extensive zone information](#getzoneInfo)
 
 
-# List of Operations
+# List of Operations <a name="listoperations"></a>
+URI: https://hackatrain.parknowportal.com/
+
 | Operation | Method | Description | 
 | ------ | ------ | ------ |
-| /parking/start       | POST   | Start a parking action |
-| /parking/stop        | PUT    | Stop a parking action |
-| /parking/{id}        | GET    | Get an existing parking action |
-| /parking/register    | POST   | Register a parking right |
-| /parking/extend/{id} | PUT    | Extend an existing parking right |
-| /parking/end/{id}    | PUT    | End an existing parking right |
-| /parking/cancel/{id} | DELETE | Cancel an existing parking right |
+| /parking/start                                      | POST   | Starts a parking action |
+| /parking/stop                                       | PUT    | Stops a parking action |
+| /parking/{id}                                       | GET    | Get an existing parking action |
+| /parking/register                                   | POST   | Register a parking right |
+| /parking/extend/{id}                                | PUT    | Extend an existing parking right |
+| /parking/end/{id}                                   | PUT    | End an existing parking right |
+| /parking/cancel/{id}                                | DELETE | Cancel an existing parking right |
+| /rates/calculateprice                               | POST | Retrieves location information, tariffs and calculated prices  |
+| /inventory/GetLocationByCode/{locationCode}         | GET | Retrieves location information by code  |
+| /inventory/GetLocationByLatLon/{Lat}/{Lon}?radius=5 | GET | Retrieves location information by latitude and longtitude  |
+
 
  
-# **Starts an parking session** <a name="startparking"></a>
-**POST /parking/start**
+# POST /parking/start <a name="startparking"></a>
 
-### **Description**
-Starts parking action until it stopped or until maximum time reached. Maximum time comes from zone settings.
+### Description
+Starts a parking action until it stopped or until maximum time reached. Maximum time comes from zone settings.
 
-
-### **Parameters**
-| Type | Name | Description | Schema | Default | 
-| ------ | ------ | ------ | ------ | ------ |
-| Header | **Authorization** optional | | string | "Bearer "
-| Header | **X-Trip-Id** optioanl | | strign | "3244b22e-0bfd-4a89-ae13-1fc32d1920a1"
-| Body | **startParkingRequest** required | The start parking request | StartParkingRequest 
+### Parameters
+| Type | Name | Required | Description | Schema | Default | 
+| ------ |  ------ | ------ | ------ | ------ | ------ |
+| Header | x-api-key               | Yes | authorization using x-api-key | string | "Bearer "
+| Body   | startParkingRequest     | Yes | The start parking request     | StartParkingRequest |
  
 
-
-### **Responses**
+### Responses
 
 | HTTP Code | Description | Schema | 
 | --------- | ----------- | ------ |
-| 201 | Parking started successfully. | ParkingResponse
-| 400 | *Validation error → Error code: 2; *Parkingright service validation errors → Error code: 4; *Find location service Validation error → Error code: 6; *PriceCalculation service validation errors → Error code: 11; | ErrorResponse
-| 401 | Given X-Api-Key or Oauth Token is not a valid token | ErrorResponse
-| 403 | Given X-Api-Key or Oauth Token does not contain required scopes to consume this resource | ErrorResponse
-| 500 | * Internal server error when processing the request → Error code : 1 * Parkingright service internal server error → Error code : 3 * Find location service internal server error → Error code : 5 * PriceCalculation service internal server error → Error code : 12 | ErrorResponse
+| 201 | A parking action started successfully. | ParkingResponse
+| 400 | <ul><li>Validation errors → Error code: 2</li><li>Parkingright service validation errors → Error code: 4</li><li>Find location service Validation error → Error code: 23</li><li>PriceCalculation service validation errors → Error code: 11</li></ul> | ErrorResponse
+| 401 | Given X-Api-Key is not a valid | ErrorResponse
+| 403 | Given X-Api-Key does not contain required scopes to consume this resource | ErrorResponse
+| 500 | <ul><li>Internal server error when processing the request → Error code : 1</li><li>Parkingright service internal server error → Error code : 3</li><li>Find location service internal server error → Error code : 5</li><li>PriceCalculation service internal server error → Error code : 12</li></ul> | ErrorResponse
 
-### **Consumes** 
+### Consumes
 - application/json
 - text/json
 
-### **Produces** 
+### Produces 
 - application/json
 - text/json
 
-### **Example HTTP request** 
-**Request body**
+### Example HTTP request 
+Request body
 ```JSON
 {
-  "startDate": "{{startDate}}",
-  "endDate": "{{endDate}}",
-  "licensePlate": "{{randomLicensePlate}}",
+  "startDate": "2019-06-05T15:35:09.699Z",
+  "licensePlate": "PN-UJB-HC",
   "licensePlateCountry": "DE",
-  "locationCode": "{{randomBerlinLocation}}",
-  "externalReferenceId": "{{externalReference}}",
-  "profile": "VIS",
-  "extraProperties": {},
+  "locationCode": "100031",
+  "externalReferenceId": "HC-1559748909699",
+  "extraProperties": {
+        "uniqueid": "unique001",
+        "residenceAB": "true"
+    }
   "amountCurrency": "EUR"
 }
 ```
 
-### **Example HTTP response**
-**Response 201**
+### Example HTTP response
+Response 201
 ```JSON
 {
-    "parkingrightId": 5016215889,
-    "licensePlate": "PN-QFQ-HC",
-    "licensePlateStripped": "PNQFQHC",
-    "startDate": "2019-05-31T12:43:45.658Z",
-    "endDate": "2019-05-31T17:59:59Z",
-    "maxEndDate": "2019-05-31T17:59:59Z",
+    "parkingrightId": 5016216102,
+    "licensePlate": "PN-UJB-HC",
+    "licensePlateStripped": "PNUJBHC",
+    "startDate": "2019-06-05T15:35:09.699Z",
+    "endDate": "2019-06-05T17:59:59Z",
+    "maxEndDate": "2019-06-05T17:59:59Z",
     "amount": 0,
     "vatPercentage": 0,
-    "poiId": 65393,
-    "profile": "VIS",
-    "externalReferenceId": "HC-1559306625658",
+    "poiId": 65439,
+    "profile": null,
+    "externalReferenceId": "HC-1559748909699",
     "extraProperties": {
-        "locationCode": "100032",
+        "uniqueid": "unique001",
+        "residenceAB": "true",
+        "locationCode": "100031",
         "licensePlateCountry": "DE",
         "amountCurrency": "EUR"
     },
@@ -99,162 +105,196 @@ Starts parking action until it stopped or until maximum time reached. Maximum ti
 }
 ````
 
-**Response 400**
+Response 400: Error code 23
 ```` JSON
 {
-  "application/json" : {
-    "errors" : [ ],
-    "code" : 6,
-    "message" : "Validation errors occurred when getting location information",
-    "technicalInfo" : null
-  }
+    "errors": [
+        {
+            "code": 23,
+            "message": "Location information not found for given zone code invalidZoneCode12"
+        }
+    ],
+    "code": 23,
+    "message": "Location information not found for given zone code invalidZoneCode12"
 }
 ````
 
-# **Stops an parking session** <a name="stopparking"></a>
-**PUT /parking/stop/{id}**
-
-### **Description**
-Stops parking action for parkign action id sent.
-
-
-### **Parameters**
-| Type | Name | Description | Schema | Default | 
-| ------ | ------ | ------ | ------ | ------ | 
-| Header | **Authorization** optional | | string | "Bearer "
-| Header | **X-Trip-Id** optioanl | | strign | "3244b22e-0bfd-4a89-ae13-1fc32d1920a1"
-| Path | **id** required | Id of the paking action | strign | "3244b22e-0bfd-4a89-ae13-1fc32d1920a1"
-| Body | **stopParkingRequest** required | The stop parking request | StopParkingRequest 
-
+Response 400: Error code 2
+```` JSON
+{
+    "errors": [
+        {
+            "field": "startParkingRequest.LicensePlate",
+            "message": "LicensePlate must be a string with a maximum length of '50'."
+        }
+    ],
+    "code": 2,
+    "message": "Validation errors occurred when creating parkingright."
+}
+````
 
 
-### **Responses**
+# PUT /parking/stop/{id} <a name="stopparking"></a>
+
+### Description
+Stops parking action for an existing parking action.
+
+### Parameters
+| Type | Name | Required | Description | Schema | Default | 
+| ------ |  ------ | ------ | ------ | ------ | ------ |
+| Header | x-api-key               | Yes | authorization using x-api-key | string | "Bearer "
+| Path   | id                      | Yes | Id of the paking action       | long   | 512045
+| Body   | stopParkingRequest      | Yes | The stop parking request     | StopParkingRequest |
+ 
+
+### Responses
 
 | HTTP Code | Description | Schema | 
 | --------- | ----------- | ------ |
-| 200 | Parking stoped successfully. | ParkingResponse
-| 400 | * Orchestration validation error → Error code: 2 * Parkingright not found → Error code: 13 * Parkingright service validation errors → Error code: 8 * PriceCalculation service validation errors → Error code : 11 | ErrorResponse
-| 401 | Given X-Api-Key or Oauth Token is not a valid token | ErrorResponse
-| 403 | Given X-Api-Key or Oauth Token does not contain required scopes to consume this resource | ErrorResponse
-| 500 | * Internal server error when processing the request → Error code : 1 * Parkingright service internal server error (get)→ Error code : 14 * Parkingright service internal server error (change)→ Error code : 7 * PriceCalculation service internal server error → Error code : 12 | ErrorResponse
+| 200 | A parking action stopped successfully. | ParkingResponse
+| 400 | <ul><li>Validation error → Error code: 21</li><li>Parkingright not found → Error code: 13</li><li>Parkingright service validation errors → Error code: 8</li><li>PriceCalculation service validation errors → Error code : 11</li></ul> | ErrorResponse
+| 401 | Given X-Api-Key is not a valid | ErrorResponse
+| 403 | Given X-Api-Key does not contain required scopes to consume this resource | ErrorResponse
+| 500 | <ul><li>Internal server error when processing the request → Error code : 1</li><li>Parkingright service internal server error → Error code : 14</li><li>PriceCalculation service internal server error → Error code : 12</li></ul> | ErrorResponse
 
-### **Consumes** 
+### Consumes 
 - application/json
 - text/json
 
-### **Produces** 
+### Produces 
 - application/json
 - text/json
 
-### **Example HTTP request** 
-**Request body**
+### Example HTTP request 
+Request body
 ```JSON
 {
-  "endDate" : "2018-04-13T09:48:02.899291Z"
+  "endDate" : "2019-06-05T15:56:25.212Z"
 }
 ```
 
-### **Example HTTP response**
-**Response 200**
+### Example HTTP response
+Response 200
 ```JSON
 {
-    "parkingrightId": 5016215889,
-    "licensePlate": "PN-QFQ-HC",
-    "licensePlateStripped": "PNQFQHC",
-    "startDate": "2019-05-31T12:43:45.658Z",
-    "endDate": "2019-05-31T13:31:59.218Z",
-    "maxEndDate": "2019-05-31T17:59:59Z",
-    "amount": 0.8,
+    "parkingrightId": 5016216105,
+    "licensePlate": "PN-L3M-HC",
+    "licensePlateStripped": "PNL3MHC",
+    "startDate": "2019-06-05T15:55:56.986Z",
+    "endDate": "2019-06-05T15:56:25.212Z",
+    "maxEndDate": "2019-06-05T17:59:59Z",
+    "amount": 0.05,
     "vatPercentage": 0,
     "poiId": 65393,
-    "profile": "VIS",
-    "externalReferenceId": "HC-1559306625658",
+    "profile": null,
+    "externalReferenceId": "HC-1559750156986",
     "extraProperties": {
+        "uniqueid": "unique001",
+        "residenceAB": "true",
         "locationCode": "100032",
         "licensePlateCountry": "DE",
         "amountCurrency": "EUR"
     },
-    "totalPayedMinutes": 49
+    "totalPayedMinutes": 1
 }
 ````
 
-**Response 400**
+Response 400: Validation error code 21
 ```` JSON
 {
-  "application/json" : {
-    "errors" : [ ],
-    "code" : 6,
-    "message" : "Validation errors occurred when getting location information",
-    "technicalInfo" : null
-  }
+    "errors": [
+        {
+            "code": 1113,
+            "message": "The requested parkingright is already stopped."
+        }
+    ],
+    "code": 21,
+    "message": "Validation errors occurred when stopping parkingright"
 }
 ````
-# **Get running parking session** <a name="getactivesession"></a>
-**GET /parking/{id}**
-
-### **Description**
-Returns running parking action.
 
 
-### **Parameters**
-| Type | Name | Description | Schema | Default | 
-| ------ | ------ | ------ | ------ | ------ |
-| Header | **Authorization** optional | | string | "Bearer "
-| Header | **X-Trip-Id** optioanl | | strign | "3244b22e-0bfd-4a89-ae13-1fc32d1920a1"
-| Path | **id** required | Id of the paking action | strign | 
- 
+# GET /parking/{id} <a name="getactivesession"></a>
 
 
-### **Responses**
+### Description
+Returns an existing parking action.
+
+### Parameters
+| Type | Name | Required | Description | Schema | Default | 
+| ------ |  ------ | ------ | ------ | ------ | ------ |
+| Header | x-api-key               | Yes | authorization using x-api-key | string | "Bearer "
+| Path   | id                      | Yes | Id of the paking action       | long   | 512045 
+
+
+### Responses
 
 | HTTP Code | Description | Schema | 
 | --------- | ----------- | ------ |
 | 200 | Parkingright found. | GetParkingrightResponse
 | 400 | Parkingright not found | ErrorResponse
-| 401 | Given X-Api-Key or Oauth Token is not a valid token | ErrorResponse
-| 403 | Given X-Api-Key or Oauth Token does not contain required scopes to consume this resource | ErrorResponse
-| 500 |* Internal server error when processing the request -> Error code : 1 | ErrorResponse
+| 401 | Given X-Api-Key is not a valid token | ErrorResponse
+| 403 | Given X-Api-Key does not contain required scopes to consume this resource | ErrorResponse
+| 400 | <ul><li>Validation error → Error code: 2</li></ul> | ErrorResponse
+| 500 | Internal server error when processing the request -> Error code : 1 | ErrorResponse
 
-### **Consumes** 
+### Consumes 
 - application/json
 - text/json
 
-### **Produces** 
+### Produces 
 - application/json
 - text/json
 
 
-### **Example HTTP response**
-**Response 200**
+### Example HTTP response
+Response 200
 ```JSON
 {
-    "parkingrightId": 5016215889,
-    "poiId": 65393,
+    "parkingrightId": 5016216106,
+    "poiId": 65437,
     "operatorId": 49101151,
     "systemId": 294,
-    "licensePlate": "PN-QFQ-HC",
-    "licensePlateStripped": "PNQFQHC",
-    "createDate": "2019-05-31T12:43:46.060852Z",
-    "modifyDate": "2019-05-31T13:32:12.371377Z",
+    "licensePlate": "PN-EJO-HC",
+    "licensePlateStripped": "PNEJOHC",
+    "createDate": "2019-06-05T16:02:28.829483Z",
+    "modifyDate": "2019-06-05T16:02:33.001322Z",
     "cancelDate": null,
-    "startDate": "2019-05-31T12:43:45.658Z",
-    "endDate": "2019-05-31T13:31:59.218Z",
-    "maxEndDate": "2019-05-31T17:59:59Z",
-    "amount": 0.8,
+    "startDate": "2019-06-05T16:02:28.506Z",
+    "endDate": "2019-06-05T16:02:32.407Z",
+    "maxEndDate": "2019-06-05T19:59:59Z",
+    "amount": 0.05,
     "vatPercentage": 0,
-    "identifier": "PN-QFQ-HC",
-    "externalReferenceId": "HC-1559306625658",
-    "profile": "VIS",
+    "identifier": "PN-EJO-HC",
+    "externalReferenceId": "HC-1559750548506",
+    "profile": null,
     "paidMinutes": 0,
     "extraProperties": {
-        "locationCode": "100032",
+        "uniqueid": "unique001",
+        "residenceAB": "true",
+        "locationCode": "100051",
         "licensePlateCountry": "DE",
         "amountCurrency": "EUR"
     }
 }
 ````
 
-**Response 500**
+Response 400: Validation error code 2
+```` JSON
+{
+    "errors": [
+        {
+            "code": 1107,
+            "message": "No parkingright found"
+        }
+    ],
+    "code": 2,
+    "message": "Validation errors occurred when getting parkingright."
+}
+````
+
+
+Response 500
 ```` JSON
 {
   "application/json" : {
@@ -266,23 +306,19 @@ Returns running parking action.
 }
 ````
 
-# **Start parking session with known end time** <a name="startbytime"></a>
-**POST /parking/register**
+# POST /parking/register <a name="startbytime"></a>
 
-### **Description**
-Creates parking action with specified end time.
+### Description
+Creates a parking right with specified period of time and amount.
 
+### Parameters
+| Type | Name | Required | Description | Schema | Default | 
+| ------ |  ------ | ------ | ------ | ------ | ------ |
+| Header | x-api-key               | Yes | authorization using x-api-key | string | "Bearer "
+| Body   | parkingrightRequest     | Yes | The parking right request     | RegisterParkingrightRequest |
+ 
 
-### **Parameters**
-| Type | Name | Description | Schema | Default | 
-| ------ | ------ | ------ | ------ | ------ |
-| Header | **Authorization** optional | | string | "Bearer "
-| Header | **X-Trip-Id** optioanl | | strign | "3244b22e-0bfd-4a89-ae13-1fc32d1920a1"
-| Body | **parkingrightRequest** required | The parking right request. | stRegisterParkingrightRequest | 
-
-
-
-### **Responses**
+### Responses
 
 | HTTP Code | Description | Schema | 
 | --------- | ----------- | ------ |
@@ -293,17 +329,17 @@ Creates parking action with specified end time.
 | 409 | Duplicate request, existing parkingright is returned | ErrorResponse
 | 500 |* Internal server error when processing the request -> Error code : 1 | ErrorResponse
 
-### **Consumes** 
+### Consumes 
 - application/json
 - text/json
 
-### **Produces** 
+### Produces 
 - application/json
 - text/json
 
 
-### **Example HTTP request**
-**Request**
+### Example HTTP request
+Request
 ```JSON
 
 {
@@ -326,8 +362,8 @@ Creates parking action with specified end time.
 ````
 
 
-### **Example HTTP response**
-**Response 200**
+### Example HTTP response
+Response 200
 ```JSON
 {
     "parkingrightId": 5016215957,
@@ -356,7 +392,7 @@ Creates parking action with specified end time.
 }
 ````
 
-**Response 400**
+Response 400
 ```` JSON
 {
   "application/json" : {
@@ -369,7 +405,7 @@ Creates parking action with specified end time.
 ````
 
 
-**Response 409**
+Response 409
 ```` JSON
 {
   "application/json" : {
@@ -397,7 +433,7 @@ Creates parking action with specified end time.
 ````
 
 
-**Response 500**
+Response 500
 ```` JSON
 {
   "application/json" : {
@@ -409,23 +445,23 @@ Creates parking action with specified end time.
 }
 ````
 
-# **Extends parking session** <a name="extendparking"></a>
-**PUT /parking/extend/{id}**
+# Extends parking session <a name="extendparking"></a>
+PUT /parking/extend/{id}
 
-### **Description**
+### Description
 Extends running parking action with new end time.
 
 
-### **Parameters**
+### Parameters
 | Type | Name | Description | Schema | Default | 
 | ------ | ------ | ------ | ------ | ------ |
-| Header | **Authorization** optional | | string | "Bearer "
-| Header | **X-Trip-Id** optioanl | | strign | "3244b22e-0bfd-4a89-ae13-1fc32d1920a1"
-| Path | **id** required | Id of the parkingright to change. | integer |
-| Body | **parkingrightRequest** required | The parking right request. | ExtendParkingrightRequestt | 
+| Header | Authorization optional | | string | "Bearer "
+| Header | X-Trip-Id optioanl | | strign | "3244b22e-0bfd-4a89-ae13-1fc32d1920a1"
+| Path | id required | Id of the parkingright to change. | integer |
+| Body | parkingrightRequest required | The parking right request. | ExtendParkingrightRequestt | 
 
 
-### **Responses**
+### Responses
 
 | HTTP Code | Description | Schema | 
 | --------- | ----------- | ------ |
@@ -434,17 +470,17 @@ Extends running parking action with new end time.
 | 403 | Given X-Api-Key or Oauth Token does not contain required scopes to consume this resource | ErrorResponse
 | 500 |* Internal server error when processing the request -> Error code : 1 | ErrorResponse
 
-### **Consumes** 
+### Consumes 
 - application/json
 - text/json
 
-### **Produces** 
+### Produces 
 - application/json
 - text/json
 
 
-### **Example HTTP request**
-**Request**
+### Example HTTP request
+Request
 ```JSON
 
 {
@@ -456,7 +492,7 @@ Extends running parking action with new end time.
 ````
 
 
-**Response 500**
+Response 500
 ```` JSON
 {
   "application/json" : {
@@ -468,23 +504,23 @@ Extends running parking action with new end time.
 }
 ````
 
-# **Ends an parking session** <a name="endparking"></a>
-**PUT /parking/end/{id}**
+# Ends an parking session <a name="endparking"></a>
+PUT /parking/end/{id}
 
-### **Description**
+### Description
 Ends running parking action.
 
 
-### **Parameters**
+### Parameters
 | Type | Name | Description | Schema | Default | 
 | ------ | ------ | ------ | ------ | ------ |
-| Header | **Authorization** optional | | string | "Bearer "
-| Header | **X-Trip-Id** optioanl | | strign | "3244b22e-0bfd-4a89-ae13-1fc32d1920a1"
-| Path | **id** required | Id of the parkingright to change. | integer |
-| Body | **parkingrightRequest** required | The parking right request. | ChangeParkingrightRequest |
+| Header | Authorization optional | | string | "Bearer "
+| Header | X-Trip-Id optioanl | | strign | "3244b22e-0bfd-4a89-ae13-1fc32d1920a1"
+| Path | id required | Id of the parkingright to change. | integer |
+| Body | parkingrightRequest required | The parking right request. | ChangeParkingrightRequest |
 
 
-### **Responses**
+### Responses
 
 | HTTP Code | Description | Schema | 
 | --------- | ----------- | ------ |
@@ -493,17 +529,17 @@ Ends running parking action.
 | 403 | Given X-Api-Key or Oauth Token does not contain required scopes to consume this resource | ErrorResponse
 | 500 |* Internal server error when processing the request -> Error code : 1 | ErrorResponse
 
-### **Consumes** 
+### Consumes 
 - application/json
 - text/json
 
-### **Produces** 
+### Produces 
 - application/json
 - text/json
 
 
-### **Example HTTP request**
-**Request**
+### Example HTTP request
+Request
 ```JSON
 
 {
@@ -515,7 +551,7 @@ Ends running parking action.
 ````
 
 
-**Response 500**
+Response 500
 ```` JSON
 {
   "application/json" : {
@@ -527,23 +563,23 @@ Ends running parking action.
 }
 ````
 
-# **Get zone info with max parking time and prices** <a name="calculateprice"></a>
-**POST /rates/calculateprice**
+# Get zone info with max parking time and prices <a name="calculateprice"></a>
+POST /rates/calculateprice
 
-### **Description**
+### Description
 Ends running parking action.
 
 
-### **Parameters**
+### Parameters
 | Type | Name | Description | Schema | Default | 
 | ------ | ------ | ------ | ------ | ------ |
-| Header | **Authorization** optional | | string | "Bearer "
-| Header | **X-Trip-Id** optioanl | | strign | "3244b22e-0bfd-4a89-ae13-1fc32d1920a1"
-| Body | **ratesCalculatePriceRequest** required | The parking right request. | RatesCalculatePriceRequest |
+| Header | Authorization optional | | string | "Bearer "
+| Header | X-Trip-Id optioanl | | strign | "3244b22e-0bfd-4a89-ae13-1fc32d1920a1"
+| Body | ratesCalculatePriceRequest required | The parking right request. | RatesCalculatePriceRequest |
 
 
 
-### **Responses**
+### Responses
 
 | HTTP Code | Description | Schema | 
 | --------- | ----------- | ------ |
@@ -552,17 +588,17 @@ Ends running parking action.
 | 403 | Given X-Api-Key or Oauth Token does not contain required scopes to consume this resource | ErrorResponse
 | 500 |* Internal server error when processing the request -> Error code : 1 | ErrorResponse
 
-### **Consumes** 
+### Consumes 
 - application/json
 - text/json
 
-### **Produces** 
+### Produces 
 - application/json
 - text/json
 
 
-### **Example HTTP request**
-**Request**
+### Example HTTP request
+Request
 ```JSON
 
 {
@@ -586,7 +622,7 @@ Ends running parking action.
 ````
 
 
-**Response 200**
+Response 200
 ```` JSON
 {
     "success": true,
@@ -669,7 +705,7 @@ Ends running parking action.
 }
 ````
 
-**Response 500**
+Response 500
 ```` JSON
 {
   "application/json" : {
@@ -681,23 +717,23 @@ Ends running parking action.
 }
 ````
 
-# **Gets zone information** <a name="getzoneinfooperatorlocation"></a>
-**GET rates/zoneinfo/{{operatorId}}/{{locationCode}}**
+# Gets zone information <a name="getzoneinfooperatorlocation"></a>
+GET rates/zoneinfo/{{operatorId}}/{{locationCode}}
 
-### **Description**
+### Description
 Ends running parking action.
 
 
-### **Parameters**
+### Parameters
 | Type | Name | Description | Schema | Default | 
 | ------ | ------ | ------ | ------ | ------ | 
-| Header | **Authorization** optional | | string | "Bearer "
-| Header | **X-Trip-Id** optioanl | | strign | "3244b22e-0bfd-4a89-ae13-1fc32d1920a1"
-| Path | **operatorId** required | Operator id (Berlin). | string |  49101151
-| Path | **locationCode** required | Location code of the zone. | string |
+| Header | Authorization optional | | string | "Bearer "
+| Header | X-Trip-Id optioanl | | strign | "3244b22e-0bfd-4a89-ae13-1fc32d1920a1"
+| Path | operatorId required | Operator id (Berlin). | string |  49101151
+| Path | locationCode required | Location code of the zone. | string |
 
 
-### **Responses**
+### Responses
 
 | HTTP Code | Description | Schema | 
 | --------- | ----------- | ------ |
@@ -707,16 +743,16 @@ Ends running parking action.
 | 404 | Not found | ErrorResponse
 | 500 |* Internal server error when processing the request -> Error code : 1 | ErrorResponse
 
-### **Consumes** 
+### Consumes 
 - application/json
 - text/json
 
-### **Produces** 
+### Produces 
 - application/json
 - text/json
 
 
-**Response 200**
+Response 200
 ```JSON
 
 {
@@ -786,7 +822,7 @@ Ends running parking action.
 }
 ````
 
-**Response 500**
+Response 500
 ```` JSON
 {
   "application/json" : {
@@ -798,24 +834,24 @@ Ends running parking action.
 }
 ````
 
-# **Gets zone information** <a name="getzoneinfogps"></a>
-**GET inventory/GetLocationByLatLon/{lat}/{lon}?radius={rad}**
+# Gets zone information <a name="getzoneinfogps"></a>
+GET inventory/GetLocationByLatLon/{lat}/{lon}?radius={rad}
 
-### **Description**
+### Description
 Gets zone info by GPS coordinates
 
 
-### **Parameters**
+### Parameters
 | Type | Name | Description | Schema | Default | 
 | ------ | ------ | ------ | ------ | ------ |
-| Header | **Authorization** optional | | string | "Bearer "
-| Header | **X-Trip-Id** optioanl | | strign | "3244b22e-0bfd-4a89-ae13-1fc32d1920a1"
-| Path | **lat** required | Lattitude. | string |  
-| Path | **lon** required | Longtitude. | string |  
-| Path | **rad** optional | Radius to search pased on provided lattitude and longtitude. | string | 
+| Header | Authorization optional | | string | "Bearer "
+| Header | X-Trip-Id optioanl | | strign | "3244b22e-0bfd-4a89-ae13-1fc32d1920a1"
+| Path | lat required | Lattitude. | string |  
+| Path | lon required | Longtitude. | string |  
+| Path | rad optional | Radius to search pased on provided lattitude and longtitude. | string | 
 
 
-### **Responses**
+### Responses
 
 | HTTP Code | Description | Schema | 
 | --------- | ----------- | ------ |
@@ -825,16 +861,16 @@ Gets zone info by GPS coordinates
 | 404 | Not found | 
 | 500 |* Internal server error when processing the request -> Error code : 1 | ErrorResponse
 
-### **Consumes** 
+### Consumes 
 - application/json
 - text/json
 
-### **Produces** 
+### Produces 
 - application/json
 - text/json
 
 
-**Response 200**
+Response 200
 ```JSON
 {
     "poiCollection": [
@@ -912,7 +948,7 @@ Gets zone info by GPS coordinates
 }
 ````
 
-**Response 500**
+Response 500
 ```` JSON
 {
   "application/json" : {
@@ -925,22 +961,22 @@ Gets zone info by GPS coordinates
 ````
 
 
-# **Get zone information** <a name="getzoneInfo"></a>
-**GET inventory/getlocationbycode/{{locationcode}}**
+# Get zone information <a name="getzoneInfo"></a>
+GET inventory/getlocationbycode/{{locationcode}}
 
-### **Description**
+### Description
 Returns extensive zone information. With all subzones.
 
 
-### **Parameters**
+### Parameters
 | Type | Name | Description | Schema | Default | 
 | ------ | ------ | ------ | ------ | ------ |
-| Header | **Authorization** optional | | string | "Bearer "
-| Header | **X-Trip-Id** optioanl | | strign | "3244b22e-0bfd-4a89-ae13-1fc32d1920a1"
-| Path | **locationcode** required | Location code of the zone. | string |  
+| Header | Authorization optional | | string | "Bearer "
+| Header | X-Trip-Id optioanl | | strign | "3244b22e-0bfd-4a89-ae13-1fc32d1920a1"
+| Path | locationcode required | Location code of the zone. | string |  
 
 
-### **Responses**
+### Responses
 
 | HTTP Code | Description | Schema | 
 | --------- | ----------- | ------ |
@@ -949,16 +985,16 @@ Returns extensive zone information. With all subzones.
 | 403 | Given X-Api-Key or Oauth Token does not contain required scopes to consume this resource | ErrorResponse
 | 500 |* Internal server error when processing the request -> Error code : 1 | ErrorResponse
 
-### **Consumes** 
+### Consumes 
 - application/json
 - text/json
 
-### **Produces** 
+### Produces 
 - application/json
 - text/json
 
 
-**Response 200**
+Response 200
 ```JSON
 {
     "poiCollection": [
@@ -3760,7 +3796,7 @@ Returns extensive zone information. With all subzones.
 }
 ````
 
-**Response 500**
+Response 500
 ```` JSON
 {
   "application/json" : {
