@@ -70,8 +70,8 @@ Base URI: https://hackatrain.parknowportal.com/
 | [/parking/register](#startbytime)                                       | POST   | Register a parking right |
 | [/parking/extend/{id}](#extendparking)                                  | PUT    | Extend an existing parking right |
 | [/parking/end/{id}](#endparking)                                        | PUT    | End an existing parking right |
-| [/parking/cancel/{id}]                                                  | DELETE | Cancel an existing parking right |
-| [/rates/calculateprice](#calculateprice                                 | POST | Retrieves location information, tariffs and calculated prices  |
+| /parking/cancel/{id}                                                    | DELETE | Cancel an existing parking right |
+| [/rates/calculateprice](#calculateprice)                                | POST | Retrieves location information, tariffs and calculated prices  |
 | [/inventory/GetLocationByCode/{locationCode}](#getzoneInfo)             | GET | Retrieves location information by code  |
 | [/inventory/GetLocationByLatLon/{Lat}/{Lon}?radius=5](#getzoneinfogps)  | GET | Retrieves location information by latitude and longtitude  |
 
