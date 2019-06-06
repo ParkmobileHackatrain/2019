@@ -1,7 +1,7 @@
 
 
 # Table of contents
-1. [List of operations] (#listoperations)
+1. [List of operations](#listoperations)
 2. [Parking start](#startparking)
 3. [Parking stop](#stopparking)
 4. [Get running parking session](#getactivesession)
