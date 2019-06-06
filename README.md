@@ -13,18 +13,35 @@
 10. [Get zone infromation by GPS coordinates](#getzoneinfogps)
 11. [Get extensive zone information](#getzoneInfo)
 
-# Configuration data
+# Configuration/Setup
 
-Operator ID
-x-api-key
+- Operator of Berlin: 49101151
+- x-api-key: cbfdf74f-0a4a-4c2e-8ac8-c480745ae4f1
 List of location
+
 | Location      |    Code    |     Lat     |    Lon     | 
 | ------        | ------     | ------      | ------     |
-| Berlin        | 10001      | 1.01        | 2.3        | 
+| Charlottenburg-Wilmersdorf  | 100011      |  52.496512 |  13.337249   | 
+| Mitte                       | 100021      |  52.520042 |  13.395834   | 
+| Tempelhof-Schöneberg        | 100015      |  52.502306 |  13.349333   | 
+| Steglitz-Zehlendorf         | 100031      |  52.462155 |  13.32782    |
+| Friedrichshain-Kreuzberg    | 100051      |  52.513245 |  13.439272   |
+| CHARGE1 (e.g Charging Point)| CHARGE1     |  52.515496 |  13.349165   |
+
 
 List of POI types
 
-52.515496/13.349165?radius=500 -> charging point
+| POI Type ID   |  POI Type  | 
+| ------        | ------     |
+| 1             | On-Street     |
+| 2             | Off-Street     |
+| 3             | Water Parking     |
+| 4             | Fuel Stop     |
+| 5             | Car Wash     |
+| 6             | Car Hire     |
+| 15            | Parking Machine     |
+| 16            | Long stay : Day/Week/Month cards and other long-stay parking zones    |
+| 17            | Charging Station     |
 
 
 # List of Operations <a name="listoperations"></a>
@@ -32,7 +49,7 @@ Base URI: https://hackatrain.parknowportal.com/
 
 | Operation | Method | Description | 
 | ------ | ------ | ------ |
-| /parking/start                                      | POST   | Starts a parking action |
+| <a name="startparking">/parking/start</a>                  | POST   | Starts a parking action |
 | /parking/stop                                       | PUT    | Stops a parking action |
 | /parking/{id}                                       | GET    | Get an existing parking action |
 | /parking/register                                   | POST   | Register a parking right |
