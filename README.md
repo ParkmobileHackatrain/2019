@@ -13,6 +13,19 @@
 10. [Get zone infromation by GPS coordinates](#getzoneinfogps)
 11. [Get extensive zone information](#getzoneInfo)
 
+# Configuration data
+
+Operator ID
+x-api-key
+List of location
+| Location      |    Code    |     Lat     |    Lon     | 
+| ------        | ------     | ------      | ------     |
+| Berlin        | 10001      | 1.01        | 2.3        | 
+
+List of POI types
+
+52.515496/13.349165?radius=500 -> charging point
+
 
 # List of Operations <a name="listoperations"></a>
 Base URI: https://hackatrain.parknowportal.com/
