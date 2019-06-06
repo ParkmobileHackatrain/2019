@@ -1,0 +1,722 @@
+{
+	"info": {
+		"_postman_id": "2722c618-a962-45f8-b08c-dbecbae3b3a9",
+		"name": "ParkMobile Hackatrain 2019",
+		"description": "# Description\n## Variables\nMost variables are set in **\"Pre-request Scripts\"** for each request. To use variable in request enclose it in *{{variableName}}*.\nIn **\"Tests\"** usually values from response are set. For example, when a parking right is created successfully then *parkingrightId* is stored to variable *{{parkingrightId}}*.\n\nLink to Github: https://github.com/ParkmobileHackatrain/2019",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Parking",
+			"item": [
+				{
+					"name": "Start a parking",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d89e4147-4415-4437-b8f6-faab950024b3",
+								"exec": [
+									"var now = new Date();",
+									"",
+									"var startDate = now.toISOString();",
+									"now.setHours(now.getHours() + 2);",
+									"var endDate = now.toISOString();",
+									"",
+									"pm.environment.set('startDate', startDate);",
+									"pm.environment.set('endDate', endDate);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "c4d2d41d-1b6b-491f-ac5c-a7fcb926bcf6",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.environment.set('parkingrightId', jsonData['parkingrightId']);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"startDate\": \"{{startDate}}\",\n    \"licensePlate\": \"{{licensePlate}}\",\n    \"licensePlateCountry\": \"DE\",\n    \"amountCurrency\": \"EUR\",\n    \"locationCode\": \"{{locationCode}}\",\n    \"externalReferenceId\": \"HACK2019001\",\n    \"extraProperties\": {\n        \"uniqueid\": \"unique001\",\n        \"residenceAB\": \"true\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{host}}parking/start",
+							"host": [
+								"{{host}}parking"
+							],
+							"path": [
+								"start"
+							]
+						},
+						"description": "## Start a parking action.\nOnce all required values are validated, calling this operation method should result in starting a parking action.\n\n----------------------\n\n## Parameters\n<table>\n    <tr>\n    \t<td><b>Name</b></td>\n    \t<td><b>Mandatory</b></td>\n    \t<td><b>Description</b></td>\n    \t<td><b>Example</b></td>\n    </tr>\n    <tr>\n        <td>StartDate</td>\n        <td>True</td>\n        <td>Contains the date and time when the parking will start in the UTC format.</td>\n        <td>2019-06-04T20:22:03.750Z</td>\n    </tr>\n    <tr>\n        <td>LicensePlate</td>\n        <td>True</td>\n        <td>Contains the licenseplate of the vehicle that is associated with the parkingright.</td>\n        <td>AB-123-BC</td>\n    </tr>\n    <tr>\n        <td>LicensePlateCountry</td>\n        <td>True</td>\n        <td>Contains the ISO 3166-1 alpha-2 country code where the licenseplate is registered.</td>\n        <td>NL</td>\n    </tr> \n    <tr>\n        <td>LocationCode</td>\n        <td>True</td>\n        <td>Contains the identifier of the location of the Parkingright.</td>\n        <td>BER001</td>\n    </tr>\n    <tr>\n        <td>ExternalReferenceId</td>\n        <td>False</td>\n        <td>Contains the external reference of the Parkingright as defined by the sending system.</td>\n        <td>EXT1002</td>\n    </tr>    \n    <tr>\n        <td>ExtraProperties</td>\n        <td>False</td>\n        <td>Additional key/value pairs that contain meta data that should be associated with the Parkingright.</td>\n        <td>{\"uniqueid\": \"unique001\", \"residenceAB\": \"true\"}</td>\n    </tr>\n</table>"
+					},
+					"response": [
+						{
+							"name": "Success | Start Parking",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"startDate\": \"{{startDate}}\",\n    \"licensePlate\": \"{{randomLicensePlate}}\",\n    \"licensePlateCountry\": \"DE\",\n    \"amountCurrency\": \"EUR\",\n    \"locationCode\": \"{{randomBerlinLocation}}\",\n    \"externalReferenceId\": \"{{externalReference}}\",\n    \"extraProperties\": {\n        \"uniqueid\": \"unique001\",\n        \"residenceAB\": \"true\"\n    }\n}"
+								},
+								"url": {
+									"raw": "{{ParkNowBaseUrl}}parking/start",
+									"host": [
+										"{{ParkNowBaseUrl}}parking"
+									],
+									"path": [
+										"start"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Tue, 04 Jun 2019 20:44:00 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "460"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "7b0cea67-8709-11e9-b511-55bab0e064ac"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=2592000"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "axaygGnnFiAFWQQ="
+								},
+								{
+									"key": "Location",
+									"value": "parking"
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-5cf6d810-4b7f6b482c4c56d68a9f72fb;Sampled=0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"parkingrightId\": 5016216071,\n    \"licensePlate\": \"PN-FCF-HC\",\n    \"licensePlateStripped\": \"PNFCFHC\",\n    \"startDate\": \"2019-06-04T20:44:00.003Z\",\n    \"endDate\": \"2019-06-05T19:59:59Z\",\n    \"maxEndDate\": \"2019-06-05T19:59:59Z\",\n    \"amount\": 0,\n    \"vatPercentage\": 0,\n    \"poiId\": 65435,\n    \"profile\": null,\n    \"externalReferenceId\": \"HC-1559681040003\",\n    \"extraProperties\": {\n        \"uniqueid\": \"unique001\",\n        \"residenceAB\": \"true\",\n        \"locationCode\": \"100211\",\n        \"licensePlateCountry\": \"DE\",\n        \"amountCurrency\": \"EUR\"\n    },\n    \"totalPayedMinutes\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "Stop a parking",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "46f1ffc9-a406-4ed0-a1ea-2bc133f1a51f",
+								"exec": [
+									"pm.environment.set('stopDateNow', new Date().toISOString());",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"endDate\": \"{{stopDateNow}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}parking/stop/{{parkingrightId}}",
+							"host": [
+								"{{host}}parking"
+							],
+							"path": [
+								"stop",
+								"{{parkingrightId}}"
+							]
+						},
+						"description": "## Stop an existing parking action.\nOnce all required values are validated, calling this operation method should result in stopping an existing parking action.\n\n----------------------\n\n## Parameters\n<table>\n    <tr>\n    \t<td><b>Name</b></td>\n    \t<td><b>Mandatory</b></td>\n    \t<td><b>Description</b></td>\n    \t<td><b>Example</b></td>\n    </tr>\n    <tr>\n        <td>EndDate</td>\n        <td>True</td>\n        <td>Contains the date and time when the parking will be ended in the UTC format.</td>\n        <td>2019-06-04T23:22:03.750Z</td>\n    </tr>\n</table>"
+					},
+					"response": [
+						{
+							"name": "Success | Stop parking",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"endDate\": \"{{stopDateNow}}\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ParkNowBaseUrl}}parking/stop/{{parkingrightId}}",
+									"host": [
+										"{{ParkNowBaseUrl}}parking"
+									],
+									"path": [
+										"stop",
+										"{{parkingrightId}}"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Tue, 04 Jun 2019 20:59:19 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "466"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "9eba9a6d-870b-11e9-aa65-bb9c0685862a"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=2592000"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "axdCEEblliAFp0w="
+								},
+								{
+									"key": "Location",
+									"value": "parking"
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-5cf6dba6-20b890bc6c313a8e706d5290;Sampled=0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"parkingrightId\": 5016216071,\n    \"licensePlate\": \"PN-FCF-HC\",\n    \"licensePlateStripped\": \"PNFCFHC\",\n    \"startDate\": \"2019-06-04T20:44:00.003Z\",\n    \"endDate\": \"2019-06-04T20:59:18.715Z\",\n    \"maxEndDate\": \"2019-06-05T19:59:59Z\",\n    \"amount\": 0.25,\n    \"vatPercentage\": 0,\n    \"poiId\": 65435,\n    \"profile\": null,\n    \"externalReferenceId\": \"HC-1559681040003\",\n    \"extraProperties\": {\n        \"uniqueid\": \"unique001\",\n        \"residenceAB\": \"true\",\n        \"locationCode\": \"100211\",\n        \"licensePlateCountry\": \"DE\",\n        \"amountCurrency\": \"EUR\"\n    },\n    \"totalPayedMinutes\": 16\n}"
+						}
+					]
+				},
+				{
+					"name": "Get parking by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}parking/{{parkingrightId}}",
+							"host": [
+								"{{host}}parking"
+							],
+							"path": [
+								"{{parkingrightId}}"
+							]
+						},
+						"description": "## Retrieve an existing parking right by ID\nOnce all required values are validated, calling this operation method should result in returning an existing parking action."
+					},
+					"response": []
+				},
+				{
+					"name": "Register a parking right",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c9b81673-4824-40a8-b8e6-5fb2ad3b0a22",
+								"exec": [
+									"var now = new Date();",
+									"",
+									"var startDate = now.toISOString();",
+									"now.setHours(now.getHours() + 2);",
+									"var endDate = now.toISOString();",
+									"",
+									"pm.environment.set('startDate', startDate);",
+									"pm.environment.set('endDate', endDate);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "34d71ba7-d57e-4462-ab7c-be43ee3121f9",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.environment.set('parkingrightId', jsonData['parkingrightId']);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"startDate\": \"{{startDate}}\",\n  \"endDate\": \"{{endDate}}\",\n  \"licensePlate\": \"PN-T0B-HC\",\n  \"licensePlateCountry\": \"DE\",\n  \"amount\": 0.75,\n  \"amountCurrency\": \"EUR\",\n  \"vatPercentage\": 15,\n  \"locationCode\": \"{{locationCode}}\",\n  \"externalReferenceId\": \"HC-1559820809089\",\n  \"extraProperties\": {\n  \t\"ExtraNote1\" : \"Note100\"\n  }\n}"
+						},
+						"url": {
+							"raw": "{{host}}parking/register",
+							"host": [
+								"{{host}}parking"
+							],
+							"path": [
+								"register"
+							]
+						},
+						"description": "## Regsiter a parking action.\nOnce all required values are validated, calling this endpoint should result in a registered Parkingright containing the identifier of the newly created resource, which can be used to retrieve the parking right at a later moment; the added resource itself is included as part of the response.\n\n----------------------\n\n## Parameters\n<table>\n    <tr>\n    \t<td><b>Name</b></td>\n    \t<td><b>Mandatory</b></td>\n    \t<td><b>Description</b></td>\n    \t<td><b>Example</b></td>\n    </tr>\n    <tr>\n        <td>StartDate</td>\n        <td>Yes</td>\n        <td>Contains the date and time when the parking will start in the UTC format.</td>\n        <td>\"2019-06-04T20:22:03.750Z\"</td>\n    </tr>\n    <tr>\n        <td>EndDate</td>\n        <td>Yes</td>\n        <td>Contains the date and time when the parking will end in the UTC format.</td>\n        <td>\"2019-06-04T23:22:03.750Z\"</td>\n    </tr>    \n    <tr>\n        <td>LicensePlate</td>\n        <td>Yes</td>\n        <td>Contains the licenseplate of the vehicle that is associated with the parkingright.</td>\n        <td>\"AB-123-BC\"</td>\n    </tr>\n    <tr>\n        <td>LicensePlateCountry</td>\n        <td>Yes</td>\n        <td>Contains the ISO 3166-1 alpha-2 country code where the licenseplate is registered.</td>\n        <td>\"NL\"</td>\n    </tr> \n    <tr>\n        <td>LocationCode</td>\n        <td>Yes</td>\n        <td>Contains the identifier of the location of the parking right.</td>\n        <td>\"BER001\"</td>\n    </tr>\n    <tr>\n        <td>Amount</td>\n        <td>Yes</td>\n        <td>Contains the full price, including VAT, that applies to the parking right.</td>\n        <td>15.40</td>\n    </tr>\n    <tr>\n        <td>AmountCurrency</td>\n        <td>Yes</td>\n        <td>Contains the currency of the amount.</td>\n        <td>\"EUR\"</td>\n    </tr>   \n    <tr>\n        <td>VatPercentage</td>\n        <td>No</td>\n        <td>Contains the VAT percentage that was applied on the amount of the parking right.</td>\n        <td>20.20</td>\n    </tr>    \n    <tr>\n        <td>ExternalReferenceId</td>\n        <td>No</td>\n        <td>Contains the external reference of the parking right as defined by the sending system.</td>\n        <td>\"EXT1002\"</td>\n    </tr>    \n    <tr>\n        <td>ExtraProperties</td>\n        <td>No</td>\n        <td>Additional key/value pairs that contain meta data that should be associated with the parking right.</td>\n        <td>{\"uniqueid\": \"unique001\", \"residenceAB\": \"Yes\"}</td>\n    </tr>\n</table>"
+					},
+					"response": [
+						{
+							"name": "Success | Register a parking right",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"startDate\": \"{{startDate}}\",\r\n  \"endDate\": \"{{endDate}}\",\r\n  \"licensePlate\": \"{{randomLicensePlate}}\",\r\n  \"licensePlateCountry\": \"DE\",\r\n  \"amount\": {{randomAmountInEuro}},\r\n  \"amountCurrency\": \"EUR\",\r\n  \"vatPercentage\": 15,\r\n  \"locationCode\": \"{{randomBerlinLocation}}\",\r\n  \"externalReferenceId\": \"{{externalReference}}\",\r\n  \"paidMinutes\": 0,\r\n  \"extraProperties\": {}\r\n}"
+								},
+								"url": {
+									"raw": "{{ParkNowBaseUrl}}parking/register",
+									"host": [
+										"{{ParkNowBaseUrl}}parking"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Tue, 04 Jun 2019 21:08:45 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "542"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "efb0a85d-870c-11e9-b0b0-4bb24b263be5"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=2592000"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "axeaaFaVFiAFuug="
+								},
+								{
+									"key": "Location",
+									"value": "parking"
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-5cf6dddc-79061db1a68ad5d19dabfeac;Sampled=0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"parkingrightId\": 5016216073,\n    \"poiId\": 65451,\n    \"operatorId\": 49101151,\n    \"systemId\": 294,\n    \"licensePlate\": \"PN-073-HC\",\n    \"licensePlateStripped\": \"PN073HC\",\n    \"createDate\": \"2019-06-04T21:08:44.9516575Z\",\n    \"modifyDate\": null,\n    \"cancelDate\": null,\n    \"startDate\": \"2019-06-04T21:08:43.73Z\",\n    \"endDate\": \"2019-06-04T23:08:43.73Z\",\n    \"maxEndDate\": \"2019-06-06T23:08:43.73Z\",\n    \"amount\": 5,\n    \"vatPercentage\": 15,\n    \"identifier\": \"PN-073-HC\",\n    \"externalReferenceId\": \"HC-1559682523730\",\n    \"profile\": null,\n    \"extraProperties\": {\n        \"locationCode\": \"100411\",\n        \"licensePlateCountry\": \"DE\",\n        \"amountCurrency\": \"EUR\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Extend an existing parking right",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "657b844b-744d-4b02-a6ae-01daacdc411d",
+								"exec": [
+									"var endDate = new Date(pm.environment.get('endDate'));",
+									"endDate.setHours(endDate.getHours() + 1);",
+									"pm.environment.set('extendDate', endDate.toISOString());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"endDate\": \"{{extendDate}}\",\r\n  \"amount\": 0.85,\r\n  \"vatPercentage\": 15.0,\r\n  \"paidMinutes\": null,\r\n  \"extraProperties\": {\r\n  \t\"ExtraNote2\" : \"Note200\"\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}parking/extend/{{parkingrightId}}",
+							"host": [
+								"{{host}}parking"
+							],
+							"path": [
+								"extend",
+								"{{parkingrightId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "End an existing parking right",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "657b844b-744d-4b02-a6ae-01daacdc411d",
+								"exec": [
+									"var endDate = new Date(pm.environment.get('endDate'));",
+									"endDate.setHours(endDate.getHours() + 1);",
+									"pm.environment.set('endDate', endDate.toISOString());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"endDate\": \"{{endDate}}\",\r\n  \"amount\": 0.95,\r\n  \"vatPercentage\": 15.0\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}parking/extend/{{parkingrightId}}",
+							"host": [
+								"{{host}}parking"
+							],
+							"path": [
+								"extend",
+								"{{parkingrightId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel an existing parking right",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}parking/cancel/{{parkingrightId}}",
+							"host": [
+								"{{host}}parking"
+							],
+							"path": [
+								"cancel",
+								"{{parkingrightId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Parking endpoints",
+			"auth": {
+				"type": "apikey",
+				"apikey": [
+					{
+						"key": "value",
+						"value": "cbfdf74f-0a4a-4c2e-8ac8-c480745ae4f1",
+						"type": "string"
+					},
+					{
+						"key": "key",
+						"value": "x-api-key",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "33acf12f-9319-4df8-9771-c0b222201a10",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "de20f81c-de75-4650-816c-f282ea5f219e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Rates",
+			"item": [
+				{
+					"name": "Calculate price for location",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2cf318a6-05ff-4027-87c6-8b7d5a942a75",
+								"exec": [
+									"var now = new Date();",
+									"var startDate = now.toISOString();",
+									"now.setHours(now.getHours() + 2);",
+									"var endDate = now.toISOString();",
+									"",
+									"pm.environment.set('startDate', startDate);",
+									"pm.environment.set('endDate', endDate);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"operatorId\": {{operatorId}},\r\n  \"signageCode\": \"{{locationCode}}\",\r\n  \"startTime\": \"{{startDate}}\",\r\n  \"endTime\": \"{{endDate}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}rates/calculateprice",
+							"host": [
+								"{{host}}rates"
+							],
+							"path": [
+								"calculateprice"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Inventory",
+			"item": [
+				{
+					"name": "Get location by code",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "69bedf32-aedc-43f0-b943-0b8bbaee85b9",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}inventory/GetLocationByCode/{{locationCode}}?withMessages=false&withAttributes=false&limit=10",
+							"host": [
+								"{{host}}inventory"
+							],
+							"path": [
+								"GetLocationByCode",
+								"{{locationCode}}"
+							],
+							"query": [
+								{
+									"key": "withGis",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "withSpaces",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "withMessages",
+									"value": "false"
+								},
+								{
+									"key": "withAttributes",
+									"value": "false"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get location by GPS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}inventory/GetLocationByLatLon/52.515496/13.349165?radius=500",
+							"host": [
+								"{{host}}inventory"
+							],
+							"path": [
+								"GetLocationByLatLon",
+								"52.515496",
+								"13.349165"
+							],
+							"query": [
+								{
+									"key": "radius",
+									"value": "500"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "key",
+				"value": "x-api-key",
+				"type": "string"
+			},
+			{
+				"key": "value",
+				"value": "cbfdf74f-0a4a-4c2e-8ac8-c480745ae4f1",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "534df28c-cdaa-4e0a-a5fb-624568d7e496",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "27cfacec-4be0-421f-8570-214c529bd739",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
