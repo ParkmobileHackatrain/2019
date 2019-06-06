@@ -15,7 +15,7 @@
 
 
 # List of Operations <a name="listoperations"></a>
-URI: https://hackatrain.parknowportal.com/
+Base URI: https://hackatrain.parknowportal.com/
 
 | Operation | Method | Description | 
 | ------ | ------ | ------ |
@@ -35,7 +35,7 @@ URI: https://hackatrain.parknowportal.com/
 # POST /parking/start <a name="startparking"></a>
 
 ### Description
-Starts a parking action until it stopped or until maximum time reached. Maximum time comes from zone settings.
+Starts a parking action until it stopped or until maximum time reached. Maximum time comes from parking zone settings.
 
 ### Parameters
 | Type | Name | Required | Description | Schema | Default | 
@@ -137,7 +137,7 @@ Response 400: Error code 2
 # PUT /parking/stop/{id} <a name="stopparking"></a>
 
 ### Description
-Stops parking action for an existing parking action.
+Stops running parking action. 
 
 ### Parameters
 | Type | Name | Required | Description | Schema | Default | 
@@ -218,7 +218,7 @@ Response 400: Validation error code 21
 
 
 ### Description
-Returns an existing parking action.
+Returns details of running parking action.
 
 ### Parameters
 | Type | Name | Required | Description | Schema | Default | 
@@ -309,7 +309,7 @@ Response 500
 # POST /parking/register <a name="startbytime"></a>
 
 ### Description
-Creates a parking right with specified period of time and amount.
+Creates a parking action with specified period of time and amount.
 
 ### Parameters
 | Type | Name | Required | Description | Schema | Default | 
@@ -445,7 +445,7 @@ Response 500
 }
 ````
 
-# Extends parking session <a name="extendparking"></a>
+# Extend parking session <a name="extendparking"></a>
 PUT /parking/extend/{id}
 
 ### Description
@@ -504,7 +504,7 @@ Response 500
 }
 ````
 
-# Ends an parking session <a name="endparking"></a>
+# End parking session <a name="endparking"></a>
 PUT /parking/end/{id}
 
 ### Description
@@ -563,11 +563,11 @@ Response 500
 }
 ````
 
-# Get zone info with max parking time and prices <a name="calculateprice"></a>
+# Get parking session price information <a name="calculateprice"></a>
 POST /rates/calculateprice
 
 ### Description
-Ends running parking action.
+Prepares parking acion that later needs to be confirmed. Returns price details.
 
 
 ### Parameters
@@ -721,7 +721,7 @@ Response 500
 GET rates/zoneinfo/{{operatorId}}/{{locationCode}}
 
 ### Description
-Ends running parking action.
+Gets zone information. Max parking time, price etc.
 
 
 ### Parameters
@@ -834,11 +834,11 @@ Response 500
 }
 ````
 
-# Gets zone information <a name="getzoneinfogps"></a>
+# Gets zone information by GPS <a name="getzoneinfogps"></a>
 GET inventory/GetLocationByLatLon/{lat}/{lon}?radius={rad}
 
 ### Description
-Gets zone info by GPS coordinates
+Gets zone/zones information by GPS coordinates within set radius. 
 
 
 ### Parameters
@@ -961,11 +961,11 @@ Response 500
 ````
 
 
-# Get zone information <a name="getzoneInfo"></a>
+# Get full zone information <a name="getzoneInfo"></a>
 GET inventory/getlocationbycode/{{locationcode}}
 
 ### Description
-Returns extensive zone information. With all subzones.
+Returns extensive zone information. With all subzones, point of interets so on.
 
 
 ### Parameters
