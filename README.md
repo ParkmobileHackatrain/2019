@@ -875,6 +875,7 @@ Gets zone/zones information by GPS coordinates within set radius.
 
 <details><summary>Response 500</summary>
 <p>
+
 ```` JSON
 {
   "application/json" : {
@@ -885,6 +886,7 @@ Gets zone/zones information by GPS coordinates within set radius.
   }
 }
 ````
+
 </p>
 </details>
 
@@ -922,6 +924,7 @@ Returns extensive zone information. With all subzones, point of interets so on.
 
 <details><summary>Response 200</summary>
 <p>
+
 ```JSON
 {
     "poiCollection": [
@@ -3722,6 +3725,7 @@ Returns extensive zone information. With all subzones, point of interets so on.
     ]
 }
 ````
+
 </p>
 </details>
 
