@@ -64,17 +64,16 @@ Base URI: https://hackatrain.parknowportal.com/
 
 | Operation | Method | Description | 
 | ------ | ------ | ------ |
-| [/parking/start](#startparking)                    | POST   | Starts a parking action |
-| /parking/stop                                       | PUT    | Stops a parking action |
-| /parking/{id}                                       | GET    | Get an existing parking action |
-| /parking/register                                   | POST   | Register a parking right |
-| /parking/extend/{id}                                | PUT    | Extend an existing parking right |
-| /parking/end/{id}                                   | PUT    | End an existing parking right |
-| /parking/cancel/{id}                                | DELETE | Cancel an existing parking right |
-| /rates/calculateprice                               | POST | Retrieves location information, tariffs and calculated prices  |
-| /inventory/GetLocationByCode/{locationCode}         | GET | Retrieves location information by code  |
-| /inventory/GetLocationByLatLon/{Lat}/{Lon}?radius=5 | GET | Retrieves location information by latitude and longtitude  |
-
+| [/parking/start](#startparking)                                         | POST   | Starts a parking action |
+| [/parking/stop](#stopparking)                                           | PUT    | Stops a parking action |
+| [/parking/{id}](#getactivesession)                                      | GET    | Get an existing parking action |
+| [/parking/register](#startbytime)                                       | POST   | Register a parking right |
+| [/parking/extend/{id}](#extendparking)                                  | PUT    | Extend an existing parking right |
+| [/parking/end/{id}](#endparking)                                        | PUT    | End an existing parking right |
+| [/parking/cancel/{id}]                                                  | DELETE | Cancel an existing parking right |
+| [/rates/calculateprice](#calculateprice                                 | POST | Retrieves location information, tariffs and calculated prices  |
+| [/inventory/GetLocationByCode/{locationCode}](#getzoneInfo)             | GET | Retrieves location information by code  |
+| [/inventory/GetLocationByLatLon/{Lat}/{Lon}?radius=5](#getzoneinfogps)  | GET | Retrieves location information by latitude and longtitude  |
 
  
 # POST /parking/start <a name="startparking"></a>
@@ -125,7 +124,10 @@ Request body
 ```
 
 ### Example HTTP response
-Response 201
+
+<details><summary>Response 201</summary>
+<p>
+
 ```JSON
 {
     "parkingrightId": 5016216102,
@@ -150,7 +152,13 @@ Response 201
 }
 ````
 
-Response 400: Error code 23
+</p>
+</details>
+
+
+<details><summary>Response 400: Error code 23</summary>
+<p>
+
 ```` JSON
 {
     "errors": [
@@ -164,7 +172,12 @@ Response 400: Error code 23
 }
 ````
 
-Response 400: Error code 2
+</p>
+</details>
+
+<details><summary>Response 400: Error code 2</summary>
+<p>
+
 ```` JSON
 {
     "errors": [
@@ -177,6 +190,11 @@ Response 400: Error code 2
     "message": "Validation errors occurred when creating parkingright."
 }
 ````
+
+</p>
+</details>
+
+
 
 
 # PUT /parking/stop/{id} <a name="stopparking"></a>
@@ -219,7 +237,10 @@ Request body
 ```
 
 ### Example HTTP response
-Response 200
+
+<details><summary>Response 200</summary>
+<p>
+
 ```JSON
 {
     "parkingrightId": 5016216105,
@@ -244,7 +265,12 @@ Response 200
 }
 ````
 
-Response 400: Validation error code 21
+</p>
+</details>
+
+<details><summary>Response 400: Validation error code 21</summary>
+<p>
+
 ```` JSON
 {
     "errors": [
@@ -257,6 +283,9 @@ Response 400: Validation error code 21
     "message": "Validation errors occurred when stopping parkingright"
 }
 ````
+
+</p>
+</details>
 
 
 # GET /parking/{id} <a name="getactivesession"></a>
@@ -293,7 +322,10 @@ Returns details of running parking action.
 
 
 ### Example HTTP response
-Response 200
+
+<details><summary>Response 200</summary>
+<p>
+
 ```JSON
 {
     "parkingrightId": 5016216106,
@@ -324,7 +356,12 @@ Response 200
 }
 ````
 
-Response 400: Validation error code 2
+</p>
+</details>
+
+<details><summary>Response 400: Validation error code 2</summary>
+<p>
+
 ```` JSON
 {
     "errors": [
@@ -338,8 +375,13 @@ Response 400: Validation error code 2
 }
 ````
 
+</p>
+</details>
 
-Response 500
+
+<details><summary>Response 500</summary>
+<p>
+
 ```` JSON
 {
   "application/json" : {
@@ -350,6 +392,10 @@ Response 500
   }
 }
 ````
+
+</p>
+</details>
+
 
 # POST /parking/register <a name="startbytime"></a>
 
@@ -408,7 +454,10 @@ Request
 
 
 ### Example HTTP response
-Response 200
+
+<details><summary>Response 200</summary>
+<p>
+
 ```JSON
 {
     "parkingrightId": 5016215957,
@@ -437,7 +486,13 @@ Response 200
 }
 ````
 
-Response 400
+</p>
+</details>
+
+
+<details><summary>Response 400</summary>
+<p>
+
 ```` JSON
 {
   "application/json" : {
@@ -449,8 +504,13 @@ Response 400
 }
 ````
 
+</p>
+</details>
 
-Response 409
+
+<details><summary>Response 409</summary>
+<p>
+
 ```` JSON
 {
   "application/json" : {
@@ -477,8 +537,13 @@ Response 409
 }
 ````
 
+</p>
+</details>
 
-Response 500
+
+<details><summary>Response 500</summary>
+<p>
+
 ```` JSON
 {
   "application/json" : {
@@ -489,6 +554,10 @@ Response 500
   }
 }
 ````
+
+</p>
+</details>
+
 
 # PUT /parking/extend/{id} <a name="extendparking"></a>
 
@@ -503,7 +572,6 @@ Extends an existing parking action with new end time and update extra properties
 | Path   | id                      | Yes | Id of the existing paking action       | long   | 512045
 | Body   | extendParkingrightRequestt      | Yes | The extend parking request     | ExtendParkingrightRequestt |
  
-
 
 ### Responses
 
@@ -538,8 +606,8 @@ Request
 }
 ````
 
-
-Response 500
+<details><summary>Response 500</summary>
+<p>
 ```` JSON
 {
   "application/json" : {
@@ -550,6 +618,9 @@ Response 500
   }
 }
 ````
+</p>
+</details>
+
 
 # PUT /parking/end/{id} <a name="endparking"></a>
 
@@ -582,7 +653,6 @@ Ends an existing parking action with given time.
 - application/json
 - text/json
 
-
 ### Example HTTP request
 Request
 ```JSON
@@ -595,8 +665,9 @@ Request
 }
 ````
 
+<details><summary>Response 500</summary>
+<p>
 
-Response 500
 ```` JSON
 {
   "application/json" : {
@@ -607,6 +678,10 @@ Response 500
   }
 }
 ````
+
+</p>
+</details>
+
 
 # POST /rates/calculateprice <a name="calculateprice"></a>
 
@@ -740,6 +815,7 @@ Request
 
 <details><summary>Response 500</summary>
 <p>
+
 ```` JSON
 {
   "application/json" : {
@@ -750,6 +826,7 @@ Request
   }
 }
 ````
+
 </p>
 </details>
 
@@ -3731,6 +3808,7 @@ Returns extensive zone information. With all subzones, point of interets so on.
 
 <details><summary>Response 500</summary>
 <p>
+
 ```` JSON
 {
   "application/json" : {
@@ -3741,5 +3819,6 @@ Returns extensive zone information. With all subzones, point of interets so on.
   }
 }
 ````
+
 </p>
 </details>
