@@ -1,0 +1,355 @@
+{
+    "poiCollection": [
+        {
+            "id": 71241,
+            "name": "Prater Garten Garage Hackathon",
+            "description": "Prater Garten Garage Hackathon",
+            "signageCode": "GARAGE3",
+            "poiTypeId": 2,
+            "poiUsageTypeId": 1,
+            "propertyTypeId": 14,
+            "primaryBrandId": 1,
+            "primaryBrandKeyId": 1,
+            "operatorId": 3331001,
+            "statusId": 4,
+            "gisCollection": [
+                {
+                    "id": 168912,
+                    "poiId": 71241,
+                    "operatorId": 3331001,
+                    "gisTypeId": 1,
+                    "gisSubTypeId": 2,
+                    "latitude": 52.539963,
+                    "longitude": 13.410778,
+                    "streetViewEnabled": false,
+                    "distance": 0
+                }
+            ],            
+            "poiSpaceCollection": [
+                {
+                    "id": 52322,
+                    "poiId": 71241,
+                    "name": "spaces",
+                    "description": "the spaces",
+                    "isLabelled": false,
+                    "spaceTypeId": 3,
+                    "statusId": 4,
+                    "numberOfSpaces": 100,
+                    "enabledDateTime": "2019-06-25T12:03:27+00:00",
+                    "disabledDateTime": "2019-07-25T12:03:27+00:00"
+                }
+            ]
+        },
+        {
+            "id": 71234,
+            "name": "Charge Mitte",
+            "description": "Charging station Mitte Hackatrain",
+            "poiTypeId": 17,
+            "poiUsageTypeId": 1,
+            "propertyTypeId": 14,
+            "primaryBrandId": 1,
+            "primaryBrandKeyId": 1,
+            "operatorId": 3331001,
+            "statusId": 4,
+            "gisCollection": [
+                {
+                    "id": 168905,
+                    "poiId": 71234,
+                    "operatorId": 3331001,
+                    "gisTypeId": 1,
+                    "gisSubTypeId": 2,
+                    "latitude": 52.5342,
+                    "longitude": 13.3834,
+                    "streetViewEnabled": false,
+                    "distance": 0
+                }
+            ]
+        },
+        {
+            "id": 71242,
+            "name": "BeachBar Mitte Parking Hackathon",
+            "description": "BeachBar Mitte Parking Hackathon",
+            "signageCode": "GARAGE4",
+            "poiTypeId": 2,
+            "poiUsageTypeId": 1,
+            "propertyTypeId": 14,
+            "primaryBrandId": 1,
+            "primaryBrandKeyId": 1,
+            "operatorId": 3331001,
+            "statusId": 4,
+            "gisCollection": [
+                {
+                    "id": 168913,
+                    "poiId": 71242,
+                    "operatorId": 3331001,
+                    "gisTypeId": 1,
+                    "gisSubTypeId": 2,
+                    "latitude": 52.534151,
+                    "longitude": 13.383379,
+                    "streetViewEnabled": false,
+                    "distance": 5.63
+                }
+            ],
+            "poiSpaceCollection": [
+                {
+                    "id": 52323,
+                    "poiId": 71242,
+                    "name": "spaces",
+                    "description": "the spaces",
+                    "isLabelled": false,
+                    "spaceTypeId": 3,
+                    "statusId": 4,
+                    "numberOfSpaces": 100,
+                    "enabledDateTime": "2019-06-25T12:03:27+00:00",
+                    "disabledDateTime": "2019-07-25T12:03:27+00:00"
+                }
+            ]
+        },
+        {
+            "id": 71210,
+            "name": "Charging station 1 12V",
+            "description": "Charging station 1 Hackatrain",
+            "signageCode": "CHARGE1",
+            "poiTypeId": 17,
+            "poiUsageTypeId": 1,
+            "propertyTypeId": 14,
+            "primaryBrandId": 1,
+            "primaryBrandKeyId": 1,
+            "operatorId": 49101151,
+            "statusId": 4,
+            "gisCollection": [
+                {
+                    "id": 167961,
+                    "poiId": 71210,
+                    "operatorId": 49101151,
+                    "gisTypeId": 1,
+                    "gisSubTypeId": 2,
+                    "latitude": 52.515496,
+                    "longitude": 13.349165,
+                    "streetViewEnabled": false,
+                    "distance": 0
+                }
+            ]
+        },
+        {
+            "id": 71235,
+            "name": "Golden Gate Charging facilities Hackathon",
+            "description": "Golden Gate Charging facilities Hackathon",
+            "poiTypeId": 17,
+            "poiUsageTypeId": 1,
+            "propertyTypeId": 14,
+            "primaryBrandId": 1,
+            "primaryBrandKeyId": 1,
+            "operatorId": 3331001,
+            "statusId": 4,
+            "gisCollection": [
+                {
+                    "id": 168906,
+                    "poiId": 71235,
+                    "operatorId": 3331001,
+                    "gisTypeId": 1,
+                    "gisSubTypeId": 2,
+                    "latitude": 52.516115,
+                    "longitude": 13.417148,
+                    "streetViewEnabled": false,
+                    "distance": 0
+                }
+            ]
+        },
+         {
+            "id": 71236,
+            "name": "Hansablick Chargin Hackathon",
+            "description": "Hansablick Chargin Hackathon",
+            "poiTypeId": 17,
+            "poiUsageTypeId": 1,
+            "propertyTypeId": 14,
+            "primaryBrandId": 1,
+            "primaryBrandKeyId": 1,
+            "operatorId": 3331001,
+            "statusId": 4,
+            "gisCollection": [
+                {
+                    "id": 168907,
+                    "poiId": 71236,
+                    "operatorId": 3331001,
+                    "gisTypeId": 1,
+                    "gisSubTypeId": 2,
+                    "latitude": 52.517532,
+                    "longitude": 13.337086,
+                    "streetViewEnabled": false,
+                    "distance": 0
+                }
+            ]
+        },
+         {
+            "id": 71237,
+            "name": "Chicken Charge Hackathon",
+            "description": "Chicken Charge 9V Hackathon",
+            "poiTypeId": 17,
+            "poiUsageTypeId": 1,
+            "propertyTypeId": 14,
+            "primaryBrandId": 1,
+            "primaryBrandKeyId": 1,
+            "operatorId": 3331001,
+            "statusId": 4,
+            "gisCollection": [
+                {
+                    "id": 168908,
+                    "poiId": 71237,
+                    "operatorId": 3331001,
+                    "gisTypeId": 1,
+                    "gisSubTypeId": 2,
+                    "latitude": 52.500998,
+                    "longitude": 13.423602,
+                    "streetViewEnabled": false,
+                    "distance": 0
+                }
+            ]
+        },
+        {
+            "id": 71238,
+            "name": "Charlottenburg Charging",
+            "description": "Charlottenburg Charging",
+            "poiTypeId": 17,
+            "poiUsageTypeId": 1,
+            "propertyTypeId": 14,
+            "primaryBrandId": 1,
+            "primaryBrandKeyId": 1,
+            "operatorId": 3331001,
+            "statusId": 4,
+            "gisCollection": [
+                {
+                    "id": 168909,
+                    "poiId": 71238,
+                    "operatorId": 3331001,
+                    "gisTypeId": 1,
+                    "gisSubTypeId": 2,
+                    "latitude": 52.522657,
+                    "longitude": 13.295408,
+                    "streetViewEnabled": false,
+                    "distance": 0
+                }
+            ]
+        },
+         {
+            "id": 71239,
+            "name": "Urban Spree Parking Hackathon",
+            "description": "Urban Spree Parking Hackathon",
+            "signageCode": "GARAGE1",
+            "poiTypeId": 2,
+            "poiUsageTypeId": 1,
+            "propertyTypeId": 14,
+            "primaryBrandId": 1,
+            "primaryBrandKeyId": 1,
+            "operatorId": 3331001,
+            "statusId": 4,
+            "gisCollection": [
+                {
+                    "id": 168910,
+                    "poiId": 71239,
+                    "operatorId": 3331001,
+                    "gisTypeId": 1,
+                    "gisSubTypeId": 2,
+                    "latitude": 52.508097,
+                    "longitude": 13.451696,
+                    "streetViewEnabled": false,
+                    "distance": 0
+                }
+            ],
+             "poiSpaceCollection": [
+                {
+                    "id": 52320,
+                    "poiId": 71239,
+                    "name": "Garagespaces",
+                    "description": "Garagespaces",
+                    "isLabelled": false,
+                    "spaceTypeId": 3,
+                    "statusId": 4,
+                    "numberOfSpaces": 100,
+                    "enabledDateTime": "2019-06-24T14:48:49+00:00",
+                    "disabledDateTime": "2019-07-24T14:48:49+00:00"
+                }
+            ]
+        },
+         {
+            "id": 71240,
+            "name": "Kurfurstendamm Parking Hackathon",
+            "description": "Kurfurstendamm PArking Hackathon",
+            "signageCode": "GARAGE2",
+            "poiTypeId": 2,
+            "poiUsageTypeId": 1,
+            "propertyTypeId": 14,
+            "primaryBrandId": 1,
+            "primaryBrandKeyId": 1,
+            "operatorId": 3331001,
+            "statusId": 4,
+            "gisCollection": [
+                {
+                    "id": 168911,
+                    "poiId": 71240,
+                    "operatorId": 3331001,
+                    "gisTypeId": 1,
+                    "gisSubTypeId": 2,
+                    "latitude": 52.503572,
+                    "longitude": 13.331996,
+                    "streetViewEnabled": false,
+                    "distance": 0
+                }
+            ],
+            "poiSpaceCollection": [
+                {
+                    "id": 52321,
+                    "poiId": 71240,
+                    "name": "spaces",
+                    "description": "the spaces",
+                    "isLabelled": false,
+                    "spaceTypeId": 3,
+                    "statusId": 4,
+                    "numberOfSpaces": 100,
+                    "enabledDateTime": "2019-06-25T12:03:27+00:00",
+                    "disabledDateTime": "2019-07-25T12:03:27+00:00"
+                }
+            ]
+        },
+         {
+            "id": 71243,
+            "name": "Getränkefeinkost Parking Hackathon BeachBar Mitte Parking Hackathon",
+            "description": "Getränkefeinkost Parking Hackathon",
+            "signageCode": "GARAGE5",
+            "poiTypeId": 2,
+            "poiUsageTypeId": 1,
+            "propertyTypeId": 14,
+            "primaryBrandId": 1,
+            "primaryBrandKeyId": 1,
+            "operatorId": 3331001,
+            "statusId": 4,
+            "gisCollection": [
+                {
+                    "id": 168914,
+                    "poiId": 71243,
+                    "operatorId": 3331001,
+                    "gisTypeId": 1,
+                    "gisSubTypeId": 2,
+                    "latitude": 52.512943,
+                    "longitude": 13.456839,
+                    "streetViewEnabled": false,
+                    "distance": 0
+                }
+            ],
+            "poiSpaceCollection": [
+                {
+                    "id": 52324,
+                    "poiId": 71243,
+                    "name": "spaces",
+                    "description": "the spaces",
+                    "isLabelled": false,
+                    "spaceTypeId": 3,
+                    "statusId": 4,
+                    "numberOfSpaces": 100,
+                    "enabledDateTime": "2019-06-25T12:03:27+00:00",
+                    "disabledDateTime": "2019-07-25T12:03:27+00:00"
+                }
+            ]
+        }
+    ]
+}

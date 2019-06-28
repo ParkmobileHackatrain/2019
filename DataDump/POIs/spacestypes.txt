@@ -1,0 +1,37 @@
+{
+  "LookupValueCollection": [
+    {
+      "id": 1,
+      "name": "Parking Bay",
+      "description": "test"
+    },
+    {
+      "id": 2,
+      "name": "Driveway"
+    },
+    {
+      "id": 3,
+      "name": "Garage"
+    },
+    {
+      "id": 4,
+      "name": "Allocated Space"
+    },
+    {
+      "id": 5,
+      "name": "Cycle Rack"
+    },
+    {
+      "id": 6,
+      "name": "Cycle Lock-up"
+    },
+    {
+      "id": 7,
+      "name": "Motorbike Bay"
+    },
+    {
+      "id": 8,
+      "name": "Long Vehicle Bay"
+    }
+  ]
+}

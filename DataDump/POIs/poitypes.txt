@@ -1,0 +1,88 @@
+{
+  "LookupValueCollection": [
+    {
+      "id": 1,
+      "name": "On-Street",
+      "description": "",
+      "isParkingPoi": true,
+      "dropdownOrder": 1
+    },
+    {
+      "id": 2,
+      "name": "Off-Street",
+      "description": "",
+      "isParkingPoi": true,
+      "dropdownOrder": 2
+    },
+    {
+      "id": 3,
+      "name": "Water Parking",
+      "description": "",
+      "isParkingPoi": true,
+      "dropdownOrder": 3
+    },
+    {
+      "id": 4,
+      "name": "Fuel Stop",
+      "description": "",
+      "isParkingPoi": false,
+      "dropdownOrder": 4
+    },
+    {
+      "id": 5,
+      "name": "Car Wash",
+      "description": "",
+      "isParkingPoi": false,
+      "dropdownOrder": 5
+    },
+    {
+      "id": 6,
+      "name": "Car Hire",
+      "description": "",
+      "isParkingPoi": false,
+      "dropdownOrder": 6
+    },
+    {
+      "id": 7,
+      "name": "Taxi Rank",
+      "description": "",
+      "isParkingPoi": false,
+      "dropdownOrder": 7
+    },
+    {
+      "id": 8,
+      "name": "Attraction",
+      "description": "",
+      "isParkingPoi": false,
+      "dropdownOrder": 8
+    },
+    {
+      "id": 9,
+      "name": "Other",
+      "description": "",
+      "isParkingPoi": false,
+    },
+      "dropdownOrder": 9
+    {
+      "id": 15,
+      "name": "Parking Machine",
+      "description": "POIs to represent parking machines",
+      "isParkingPoi": false,
+      "dropdownOrder": 10
+    },
+    {
+      "id": 16,
+      "name": "Long Stay",
+      "description": "Day/Week/Month cards and other long-stay parking zones",
+      "isParkingPoi": true,
+      "dropdownOrder": 0
+    },
+    {
+      "id": 17,
+      "name": "Charging Station",
+      "description": "Charging Stations",
+      "isParkingPoi": false,
+      "dropdownOrder": 0
+    }
+  ]
+}

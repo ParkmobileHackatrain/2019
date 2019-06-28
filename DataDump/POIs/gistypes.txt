@@ -1,0 +1,29 @@
+{
+  "LookupValueCollection": [
+    {
+      "id": 1,
+      "name": "Point",
+      "dropdownOrder": 1
+    },
+    {
+      "id": 2,
+      "name": "Polygon",
+      "dropdownOrder": 2
+    },
+    {
+      "id": 3,
+      "name": "PolygonGroup",
+      "dropdownOrder": 3
+    },
+    {
+      "id": 4,
+      "name": "Operator",
+      "dropdownOrder": 4
+    },
+    {
+      "id": 5,
+      "name": "Line",
+      "dropdownOrder": 5
+    }
+  ]
+}

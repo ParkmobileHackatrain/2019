@@ -1,0 +1,20 @@
+select 
+z.ZONE_DESCRIPTION as 'Zone', 
+z.ZONE_CODE as 'ZoneCode', 
+pad.Lat as 'Latitude', 
+pad.Lon as 'Longitude', 
+zg.DESCRIPTION as 'ZoneGroup', 
+zt.TYPE_NAME as 'ZoneType',
+'HACK-' + CAST(pa.VEHICLE_ID AS varchar(10))  as 'LicensePlate',
+pa.START_TIME as 'StartTime',
+pa.STOP_TIME as 'StopTime',
+pa.MAX_STOP_TIME as 'MaxStopTime',
+pa.PARKING_AMOUNT as 'ParkingAmount',
+pa.PAYED_MINUTES as 'PayedMinutes'
+from PARKING_ACTION pa 
+inner join ZONE z on z.ZONE_ID=pa.ZONE_ID
+inner join ZONEGROUP zg on zg.ZONEGROUP_ID = pa.ZONEGROUP_ID
+inner join ZONE_TYPE zt on zt.ZONE_TYPE_ID = z.ZONE_TYPE_ID
+inner join ParkingactionDetail pad on pad.ParkingactionId=pa.PARKING_ACTION_ID
+where pa.DATE_CREATED >= '2019-03-01' and pa.DATE_CREATED <= '2019-03-31' and z.ZONE_DESCRIPTION like '%Berlin%' --z.SUPPLIER_ID=56
+
