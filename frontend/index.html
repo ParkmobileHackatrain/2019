@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<script language="JavaScript" type="text/javascript"  src="jquery-3.4.1.min.js"></script>
+
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	<meta charset="utf-8">
+	<title>Directions Service</title>
+	<style>
+		/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+		#map {
+			height: 100%;
+		}
+
+		/* Optional: Makes the sample page fill the window. */
+		html,
+		body {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+
+		#floating-panel {
+			position: absolute;
+			top: 10px;
+			left: 25%;
+			z-index: 5;
+			background-color: #fff;
+			padding: 5px;
+			border: 1px solid #999;
+			text-align: center;
+			font-family: 'Roboto', 'sans-serif';
+			line-height: 30px;
+			padding-left: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="floating-panel">
+		<p>
+			<b>Start A: </b>
+			<input type="text" id="latstart" value="52.5342" /><input type="text" id="lonstart" value="13.3834" /></p>
+		<p><b>Stop B: </b>
+			<input type="text" id="latstop" value="52.507532" /><input type="text" id="lonstop" value="13.337086" /></p>
+			<p>
+				<b>New Start Lat: <span id="spStartLat"></span></b> <b>New Start Lon: <span id="spStartLon"></span></b><br/>
+				<b>New Stop Lat: <span id="spStopLat"></span></b> <b>New Stop Lon: <span id="spStopLon"></span></b><br/>
+			</p>
+		<input type="button" id="cmdStart" value="boink" />
+	</div>
+	<div id="map"></div>
+	<script>
+		function initMap() {
+			var directionsService = new google.maps.DirectionsService;
+			var directionsDisplay = new google.maps.DirectionsRenderer;
+			var map = new google.maps.Map(document.getElementById('map'), {
+				zoom: 13,
+				center: { lat: 52.5342, lng: 13.3834 }
+			});
+			directionsDisplay.setMap(map);
+
+			var onChangeHandler = function () {
+				calculateAndDisplayRoute(directionsService, directionsDisplay);
+			};
+			document.getElementById('cmdStart').addEventListener('click', onChangeHandler);
+		}
+
+		function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+			var start = new google.maps.LatLng(document.getElementById('latstart').value,
+				document.getElementById('lonstart').value);
+			var end = new google.maps.LatLng(document.getElementById('latstop').value,
+				document.getElementById('lonstop').value);
+
+
+			directionsService.route({
+				origin: start,//document.getElementById('start').value,
+				destination: end,//document.getElementById('end').value,
+				travelMode: 'DRIVING',
+				drivingOptions: {
+					departureTime: new Date(/* now, or future date */),
+					trafficModel: 'bestguess'
+				},
+
+			}, function (response, status) {
+				if (status === 'OK') {
+					var startLat = document.getElementById('latstart').value;
+					var startLon = document.getElementById('lonstart').value;
+						
+					var stopLat = document.getElementById('latstop').value;
+					var stopLon = document.getElementById('lonstop').value;
+
+					$('#spStartLat').text(startLat);
+					$('#spStartLon').text(startLon);
+					$('#spStopLat').text(stopLat);
+					$('#spStopLon').text(stopLon);
+					$.ajax({						
+						url: "http://ec2-18-224-151-132.us-east-2.compute.amazonaws.com:8080/get_pickup?requested_pickup_lat="+startLat+"&requested_pickup_long="+startLon
+					}).then(function (data) {
+						
+						console.log('lat ' + data["position_lat"]);
+						console.log('lon ' + data["position_long"]);
+												
+						$('#spStartLat').text(data["position_lat"]);
+						$('#spStartLon').text(data["position_long"]);
+						calculateAndDisplayRouteAdjustedStart(directionsService, directionsDisplay, data["position_lat"], data["position_long"]);
+
+
+					});
+					console.log(response);
+					directionsDisplay.setDirections(response);
+				} else {
+					window.alert('Directions request failed due to ' + status);
+				}
+			});
+		}
+
+		function calculateAndDisplayRouteAdjustedStart(directionsService, directionsDisplay, lat, lon) {
+			console.log("calculateAndDisplayRouteAdjustedStart: " + lat +"-"+ lon)
+			alert("press to go on");
+			var start = new google.maps.LatLng(lat, lon);
+			var end = new google.maps.LatLng(document.getElementById('latstop').value,
+				document.getElementById('lonstop').value);
+			var stopLat = document.getElementById('latstop').value;
+			var stopLon = document.getElementById('lonstop').value;
+
+
+			directionsService.route({
+				origin: start,
+				destination: end,
+				travelMode: 'DRIVING',
+				drivingOptions: {
+					departureTime: new Date(/* now, or future date */),
+					trafficModel: 'bestguess'
+				},
+
+			}, function (response, status) {
+				if (status === 'OK') {		
+
+					$.ajax({						
+						url: "http://ec2-18-224-151-132.us-east-2.compute.amazonaws.com:8080/get_dropoff?ETA=10&dropoff_lat=" + stopLat + "&dropoff_long=" + stopLon + "&last_dropoff_lat="+stopLat+"&last_dropoff_long=" + stopLon
+					}).then(function (data) {
+						
+						console.log('lat ' + data["position_lat"]);
+						console.log('lon ' + data["position_long"]);
+
+						
+						$('#spStopLat').text(data["position_lat"]);
+						$('#spStopLon').text(data["position_long"]);
+						calculateAndDisplayRouteAdjustedStop(directionsService, directionsDisplay, lat, lon, data["position_lat"], data["position_long"]);
+
+
+
+
+					});
+					console.log(response);
+					directionsDisplay.setDirections(response);
+				} else {
+					window.alert('Directions request failed due to ' + status);
+				}
+			});
+		}
+
+		function calculateAndDisplayRouteAdjustedStop(directionsService, directionsDisplay, latStart, lonStart, latStop, lonStop) {
+			console.log("calculateAndDisplayRouteAdjustedStop: " + latStart +"-"+ lonStart);
+			console.log("calculateAndDisplayRouteAdjustedStop: " + latStop +"-"+ lonStop);
+			var start = new google.maps.LatLng(latStart, lonStart);
+			var end = new google.maps.LatLng(latStop, lonStop);
+			alert("ssdsd");
+			directionsService.route({
+				origin: start,
+				destination: end,
+				travelMode: 'DRIVING',
+				drivingOptions: {
+					departureTime: new Date(/* now, or future date */),
+					trafficModel: 'bestguess'
+				},
+
+			}, function (response, status) {
+				if (status === 'OK') {		
+
+					
+					console.log(response);
+					directionsDisplay.setDirections(response);
+				} else {
+					window.alert('Directions request failed due to ' + status);
+				}
+			});
+		}
+
+	</script>
+	<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmgxyslsu2mE9hSFWGwtrZLx2sUD-BX-Q&callback=initMap">
+		</script>
+</body>
+
+</html>

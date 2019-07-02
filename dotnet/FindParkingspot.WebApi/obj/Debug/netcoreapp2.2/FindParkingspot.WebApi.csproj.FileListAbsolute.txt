@@ -1,0 +1,14 @@
+D:\projects\ParkmobileHackatrain2019\dotnet\FindParkingspot.WebApi\bin\Debug\netcoreapp2.2\FindParkingspot.WebApi.deps.json
+D:\projects\ParkmobileHackatrain2019\dotnet\FindParkingspot.WebApi\bin\Debug\netcoreapp2.2\FindParkingspot.WebApi.runtimeconfig.json
+D:\projects\ParkmobileHackatrain2019\dotnet\FindParkingspot.WebApi\bin\Debug\netcoreapp2.2\FindParkingspot.WebApi.runtimeconfig.dev.json
+D:\projects\ParkmobileHackatrain2019\dotnet\FindParkingspot.WebApi\bin\Debug\netcoreapp2.2\FindParkingspot.WebApi.dll
+D:\projects\ParkmobileHackatrain2019\dotnet\FindParkingspot.WebApi\bin\Debug\netcoreapp2.2\FindParkingspot.WebApi.pdb
+D:\projects\ParkmobileHackatrain2019\dotnet\FindParkingspot.WebApi\obj\Debug\netcoreapp2.2\FindParkingspot.WebApi.csprojAssemblyReference.cache
+D:\projects\ParkmobileHackatrain2019\dotnet\FindParkingspot.WebApi\obj\Debug\netcoreapp2.2\FindParkingspot.WebApi.csproj.CoreCompileInputs.cache
+D:\projects\ParkmobileHackatrain2019\dotnet\FindParkingspot.WebApi\obj\Debug\netcoreapp2.2\FindParkingspot.WebApi.RazorAssemblyInfo.cache
+D:\projects\ParkmobileHackatrain2019\dotnet\FindParkingspot.WebApi\obj\Debug\netcoreapp2.2\FindParkingspot.WebApi.RazorAssemblyInfo.cs
+D:\projects\ParkmobileHackatrain2019\dotnet\FindParkingspot.WebApi\obj\Debug\netcoreapp2.2\FindParkingspot.WebApi.AssemblyInfoInputs.cache
+D:\projects\ParkmobileHackatrain2019\dotnet\FindParkingspot.WebApi\obj\Debug\netcoreapp2.2\FindParkingspot.WebApi.AssemblyInfo.cs
+D:\projects\ParkmobileHackatrain2019\dotnet\FindParkingspot.WebApi\obj\Debug\netcoreapp2.2\FindParkingspot.WebApi.RazorTargetAssemblyInfo.cache
+D:\projects\ParkmobileHackatrain2019\dotnet\FindParkingspot.WebApi\obj\Debug\netcoreapp2.2\FindParkingspot.WebApi.dll
+D:\projects\ParkmobileHackatrain2019\dotnet\FindParkingspot.WebApi\obj\Debug\netcoreapp2.2\FindParkingspot.WebApi.pdb
