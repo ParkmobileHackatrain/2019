@@ -10,6 +10,16 @@
 - Operator of Berlin: 49101151
 - x-api-key: cbfdf74f-0a4a-4c2e-8ac8-c480745ae4f1
 
+## You might also use cUrl!
+
+example...
+```bash
+curl \
+    --header "x-api-key: cbfdf74f-0a4a-4c2e-8ac8-c480745ae4f1" \
+    https://hackatrain.parknowportal.com/inventory/GetLocationByLatLon/52.515496/13.349165?radius=500 \
+
+```
+
 ### List of location
 
 | Location      |    Code    |     Lat     |    Lon     | 
